@@ -131,3 +131,29 @@ func SmallestMultiple(limit int) int {
 
 	return smallest
 }
+
+// SumSquareDifference1 https://projecteuler.net/problem=6
+func SumSquareDifference1(limit int) int {
+	sum := 0
+
+	for i := 1; i <= limit; i++ {
+		for j := i + 1; j <= limit; j++ {
+			sum += i * j
+		}
+	}
+
+	return 2 * sum
+}
+
+// SumSquareDifference https://projecteuler.net/problem=6
+func SumSquareDifference(limit int) int {
+	sum := 0
+	square := 0
+	for i := 1; i <= limit; i++ {
+		sum += i
+		square += i * i
+	}
+
+	return sum*sum - square
+
+}

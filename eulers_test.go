@@ -29,3 +29,11 @@ func Test_Largest_palindom(t *testing.T) {
 func Test_Smallest_multiples(t *testing.T) {
 	assert.Equal(t, 232792560, SmallestMultiple(20))
 }
+
+func Test_Sum_square_differences(t *testing.T) {
+	assert.Equal(t, 25164150, SumSquareDifference(100))
+}
+
+func Test_Sum_square_differences1(t *testing.T) {
+	assert.Equal(t, 25164150, SumSquareDifference1(100))
+}
