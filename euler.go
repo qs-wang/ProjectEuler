@@ -1,6 +1,9 @@
 package projecteuler
 
-import "math"
+import (
+	"math"
+	"strconv"
+)
 
 // M3_5 for https://projecteuler.net/problem=1
 func M3_5(num int) int {
@@ -87,4 +90,44 @@ func LargePrimeFactor(num int) int {
 	}
 
 	return max
+}
+
+// LargestPalindrome https://projecteuler.net/problem=4
+func LargestPalindrome(high int, low int) int {
+	max := 0
+	for i := high; i > low; i-- {
+		for j := i; j > low; j-- {
+			if isPalindrome(i*j) && i*j > max {
+				max = i * j
+			}
+		}
+	}
+	return max
+}
+
+func isPalindrome(num int) bool {
+	str := strconv.Itoa(num)
+	for i := 0; i < len(str)/2; i++ {
+		if str[i] != str[len(str)-i-1] {
+			return false
+		}
+	}
+	return true
+}
+
+// SmallestMultiple https://projecteuler.net/problem=5
+func SmallestMultiple(limit int) int {
+	smallest := 1
+
+	for num := 2; num <= limit; num++ {
+		square := num
+		for square <= limit {
+			if smallest%square != 0 {
+				smallest = smallest * num
+			}
+			square = square * num
+		}
+	}
+
+	return smallest
 }
