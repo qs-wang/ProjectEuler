@@ -37,3 +37,15 @@ func Test_Sum_square_differences(t *testing.T) {
 func Test_Sum_square_differences1(t *testing.T) {
 	assert.Equal(t, 25164150, SumSquareDifference1(100))
 }
+
+func TestPrime(t *testing.T) {
+	assert.False(t, Prime(9))
+}
+
+func Test_Nth_Prime(t *testing.T) {
+	assert.Equal(t, 104743, NthPrime(10001))
+}
+
+func Test_LastestProductSeries(t *testing.T) {
+	assert.Equal(t, 23514624000, LastestProductSeries(13))
+}
