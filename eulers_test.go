@@ -49,3 +49,11 @@ func Test_Nth_Prime(t *testing.T) {
 func Test_LastestProductSeries(t *testing.T) {
 	assert.Equal(t, 23514624000, LastestProductSeries(13))
 }
+
+func Test_Sum_of_Prime(t *testing.T) {
+	assert.Equal(t, 142913828922, SumOfPrime(2000000))
+}
+
+func Test_Sum_of_Prime_Sieve(t *testing.T) {
+	assert.Equal(t, 142913828922, SumOfPrimeSieve(2000000))
+}

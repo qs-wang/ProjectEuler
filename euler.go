@@ -227,3 +227,36 @@ func doMulti(nums string, start int, len int) int {
 
 	return multi
 }
+
+// func SpecialPythagoreanTriple(num int) (int,int) {
+
+// }
+
+// SumOfPrime https://projecteuler.net/problem=10
+func SumOfPrime(num int) int {
+	sum := 2
+	for i := 3; i <= num; i += 2 {
+		if Prime(i) {
+			sum += i
+		}
+	}
+	return sum
+}
+
+// SumOfPrimeSieve https://projecteuler.net/problem=10
+func SumOfPrimeSieve(num int) int {
+	sum := 0
+	sieve := make([]bool, num+1)
+	for i := 2; i <= num; i++ {
+		if sieve[i] {
+			continue
+		}
+		sum += i
+
+		for j := 2; j*i < num+1; j++ {
+			sieve[j*i] = true
+		}
+	}
+
+	return sum
+}
