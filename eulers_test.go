@@ -57,3 +57,11 @@ func Test_Sum_of_Prime(t *testing.T) {
 func Test_Sum_of_Prime_Sieve(t *testing.T) {
 	assert.Equal(t, 142913828922, SumOfPrimeSieve(2000000))
 }
+
+func TestSpecialPythagoreanTriple(t *testing.T) {
+	assert.Equal(t, 31875000, SpecialPythagoreanTriple(1000))
+}
+
+func TestLargestProductInGrid(t *testing.T) {
+	assert.Equal(t, int64(70600674), LargestProductInGrid())
+}
