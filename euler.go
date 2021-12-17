@@ -441,3 +441,35 @@ func LatticePaths() int {
 	return matrix[20][20]
 
 }
+
+//PowerDigitSum https://projecteuler.net/problem=16
+func PowerDigitSum() int64 {
+	// 2^10 = 1024 => 4 digits
+	// 1024*1024 => 7 digits
+	// 2^1000 => 3xx. 400 should be safe
+	num := [400]int64{}
+
+	num[0] = 1
+
+	carry := int64(0)
+
+	for i := 0; i < 1000; i++ {
+		for j := 0; j < 400; j++ {
+			c := num[j]*int64(2) + carry
+			if c >= 10 {
+				num[j] = c - 10
+				carry = 1
+			} else {
+				num[j] = c
+				carry = 0
+			}
+		}
+	}
+
+	sum := int64(0)
+	for i := 0; i < 400; i++ {
+		sum += num[i]
+	}
+
+	return sum
+}

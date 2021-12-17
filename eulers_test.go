@@ -85,3 +85,7 @@ func TestLongestCollatzSequence(t *testing.T) {
 func TestLatticePaths(t *testing.T) {
 	assert.Equal(t, 137846528820, LatticePaths())
 }
+
+func TestPowerDigitDum(t *testing.T) {
+	assert.Equal(t, 1366, PowerDigitSum())
+}
