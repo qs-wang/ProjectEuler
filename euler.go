@@ -1,7 +1,11 @@
 package projecteuler
 
 import (
+	"bufio"
+	"log"
 	"math"
+	"math/big"
+	"os"
 	"strconv"
 )
 
@@ -336,4 +340,104 @@ func Max(x, y int64) int64 {
 		return y
 	}
 	return x
+}
+
+// HighlyDividedTriangularNumber https://projecteuler.net/problem=12
+func HighlyDividedTriangularNumber() int {
+
+	i := 1
+	amt := 1
+	for {
+		if FactorsAmt(amt, 500) > 500 {
+			break
+		}
+
+		i++
+		amt = amt + i
+	}
+
+	return amt
+}
+
+func FactorsAmt(num int, min int) int {
+	if int(math.Sqrt(float64(num))) < min {
+		return 0
+	}
+
+	count := 0
+	for i := 1; i <= int(math.Sqrt(float64(num))); i++ {
+		remain := num % i
+		if remain == 0 {
+			count += 2
+		}
+	}
+
+	return count
+}
+
+func LargeSum() string {
+	file, err := os.Open("./largesum.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+	sum := big.NewInt(0)
+	for scanner.Scan() {
+		line := scanner.Text()
+		n := new(big.Int)
+		n.SetString(line, 10)
+		sum.Add(n, sum)
+	}
+	if err := scanner.Err(); err != nil {
+		log.Fatal(err)
+	}
+
+	stringSum := sum.Text(10)
+
+	return stringSum[0:10]
+}
+
+// LongestCollatzSequence https://projecteuler.net/problem=14
+func LongestCollatzSequence(num int) int {
+	max := 0
+	n := 0
+
+	for i := num; i > 0; i-- {
+		count := 0
+		for j := i; j > 1; {
+			if j%2 == 0 {
+				j = j / 2
+				count++
+			} else {
+				j = (3*j + 1) / 2
+				count += 2
+			}
+		}
+		if count > max {
+			n = i
+			max = count
+		}
+	}
+
+	return n
+}
+
+// LatticePaths https://projecteuler.net/problem=15
+func LatticePaths() int {
+	matrix := [21][21]int{}
+	for i := 0; i < 21; i++ {
+		matrix[0][i] = 1
+		matrix[i][0] = 1
+	}
+
+	for i := 1; i < 21; i++ {
+		for j := 1; j < 21; j++ {
+			matrix[i][j] = matrix[i-1][j] + matrix[i][j-1]
+		}
+	}
+
+	return matrix[20][20]
+
 }

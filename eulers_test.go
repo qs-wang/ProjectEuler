@@ -65,3 +65,23 @@ func TestSpecialPythagoreanTriple(t *testing.T) {
 func TestLargestProductInGrid(t *testing.T) {
 	assert.Equal(t, int64(70600674), LargestProductInGrid())
 }
+
+func TestHighlyDividedTriangularNumber(t *testing.T) {
+	assert.Equal(t, 76576500, HighlyDividedTriangularNumber())
+}
+
+// func TestHighlyDividedTriangularNumber(t *testing.T) {
+// 	assert.Equal(t, 0, FactorsAmt(28, 5))
+// }
+
+func TestLargeSumNumber(t *testing.T) {
+	assert.Equal(t, "5537376230", LargeSum())
+}
+
+func TestLongestCollatzSequence(t *testing.T) {
+	assert.Equal(t, 837799, LongestCollatzSequence(1000000))
+}
+
+func TestLatticePaths(t *testing.T) {
+	assert.Equal(t, 137846528820, LatticePaths())
+}
