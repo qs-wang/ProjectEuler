@@ -87,5 +87,29 @@ func TestLatticePaths(t *testing.T) {
 }
 
 func TestPowerDigitDum(t *testing.T) {
-	assert.Equal(t, 1366, PowerDigitSum())
+	assert.Equal(t, int64(1366), PowerDigitSum())
+}
+
+func TestLetterCount(t *testing.T) {
+	assert.Equal(t, 11, LetterCount(1000))
+}
+
+func TestLetterCount1(t *testing.T) {
+	assert.Equal(t, 10, LetterCount(100))
+}
+
+func TestLetterCount2(t *testing.T) {
+	assert.Equal(t, 10, LetterCount(200))
+}
+
+func TestLetterCount3(t *testing.T) {
+	assert.Equal(t, 5, LetterCount(40))
+}
+
+func TestLetterCount4(t *testing.T) {
+	assert.Equal(t, 8, LetterCount(42))
+}
+
+func TestNumberLetterCounts(t *testing.T) {
+	assert.Equal(t, 21124, NumberLetterCounts())
 }

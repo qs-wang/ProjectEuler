@@ -473,3 +473,84 @@ func PowerDigitSum() int64 {
 
 	return sum
 }
+
+func NumberLetterCounts() int {
+	sum := 0
+	for i := 1; i <= 1000; i++ {
+		sum += LetterCount(i)
+	}
+
+	return sum
+}
+
+func LetterCount(num int) int {
+	countMap := map[int]int{
+		1:  3,
+		2:  3,
+		3:  5,
+		4:  4,
+		5:  4,
+		6:  3,
+		7:  5,
+		8:  5,
+		9:  4,
+		10: 3,
+		11: 6,
+		12: 6,
+		13: 8,
+		14: 8,
+		15: 7,
+		16: 7,
+		17: 9,
+		18: 8,
+		19: 8,
+		20: 6,
+		30: 6,
+		40: 5,
+		50: 5,
+		60: 5,
+		70: 7,
+		80: 6,
+		90: 6,
+		0:  0,
+	}
+
+	q := num
+	count := 0
+
+	reminder := q % 100
+	if val, ok := countMap[reminder]; ok {
+		count += val
+	} else {
+		r := reminder % 10
+		p := reminder - r
+
+		count = count + countMap[r] + countMap[p]
+	}
+
+	q = q / 100
+
+	if q == 0 {
+		return count
+	}
+
+	if reminder != 0 {
+		count += 3
+	}
+
+	reminder = q % 10
+	count = count + countMap[reminder]
+	if reminder != 0 {
+		count += 7
+	}
+
+	q = q / 10
+
+	if q == 0 {
+		return count
+	}
+
+	count = count + countMap[q] + 8
+
+	return count
+}
