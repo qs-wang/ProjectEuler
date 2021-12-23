@@ -113,3 +113,7 @@ func TestLetterCount4(t *testing.T) {
 func TestNumberLetterCounts(t *testing.T) {
 	assert.Equal(t, 21124, NumberLetterCounts())
 }
+
+func TestMaximumPathSum1(t *testing.T) {
+	assert.Equal(t, 21124, MaximumPathSum1())
+}
