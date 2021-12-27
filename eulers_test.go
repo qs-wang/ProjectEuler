@@ -117,3 +117,11 @@ func TestNumberLetterCounts(t *testing.T) {
 func TestMaximumPathSum1(t *testing.T) {
 	assert.Equal(t, 21124, MaximumPathSum1())
 }
+
+func TestCountingSundays(t *testing.T) {
+	assert.Equal(t, 171, CountingSundays())
+}
+
+func TestFactorialDigitNum(t *testing.T) {
+	assert.Equal(t, "648", FactorialDigitNum(100))
+}

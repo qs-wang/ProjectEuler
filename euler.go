@@ -2,6 +2,7 @@ package projecteuler
 
 import (
 	"bufio"
+	"fmt"
 	"log"
 	"math"
 	"math/big"
@@ -594,5 +595,72 @@ func MaximumPathSum1() int {
 	}
 
 	return max
+
+}
+
+// CountingSundays https://projecteuler.net/problem=19
+func CountingSundays() int {
+	startWeekday := 1
+	count := 0
+
+	for year := 1901; year <= 2000; year++ {
+		for month := 1; month <= 12; month++ {
+			startWeekday = getNextFirstWeekDay(year, month, startWeekday)
+			if startWeekday == 0 {
+				count++
+			}
+		}
+	}
+	return count
+}
+
+func getNextFirstWeekDay(year int, month int, day int) int {
+
+	switch month {
+	case 4, 6, 9, 11:
+		return (day + 30/7) % 7
+	case 1, 3, 5, 7, 8, 10, 12:
+		return (day + 31/7) % 7
+	case 2:
+		if isLeapYear(year) {
+			return (day + 29/7) % 7
+		}
+
+		return (day + 28/7) % 7
+
+	}
+
+	return 0
+}
+
+func isLeapYear(year int) bool {
+	return year%4 == 0 && (year%100 != 0 || year%400 == 0)
+}
+
+// FactorialDigitNum https://projecteuler.net/problem=20
+func FactorialDigitNum(num int) string {
+	result := big.NewInt(1)
+	for i := 1; i <= num; i++ {
+		result = result.Mul(result, big.NewInt(int64(i)))
+	}
+
+	fmt.Println(result.Text(10))
+	count := big.NewInt(0)
+
+	for {
+
+		m := big.NewInt(0)
+		result, mod := result.DivMod(result, big.NewInt(10), m)
+
+		fmt.Println(mod.Text(10))
+
+		count = count.Add(count, mod)
+
+		if result.Cmp(big.NewInt(0)) == 0 {
+			break
+		}
+	}
+
+	return count.Text(10)
 
 }
