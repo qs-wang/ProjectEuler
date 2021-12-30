@@ -664,3 +664,34 @@ func FactorialDigitNum(num int) string {
 	return count.Text(10)
 
 }
+
+// AmicableNumbers https://projecteuler.net/problem=21
+func AmicableNumbers(up int) int {
+	count := 0
+	numMpa := make(map[int]int)
+
+	for i := 2; i < 10000; i++ {
+		factorCount := GetFactorSum(i)
+		if value, ok := numMpa[i]; ok {
+			if value == factorCount {
+				count = count + i + factorCount
+				delete(numMpa, factorCount)
+			}
+		} else {
+			numMpa[factorCount] = i
+		}
+	}
+
+	return count
+}
+
+// GetFactorSum get sum of factor excludes the number itself
+func GetFactorSum(i int) int {
+	factorCount := 1
+	for j := 2; j < int(math.Sqrt(float64(i))); j++ {
+		if i%j == 0 {
+			factorCount = factorCount + j + i/j
+		}
+	}
+	return factorCount
+}

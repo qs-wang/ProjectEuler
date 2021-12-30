@@ -125,3 +125,13 @@ func TestCountingSundays(t *testing.T) {
 func TestFactorialDigitNum(t *testing.T) {
 	assert.Equal(t, "648", FactorialDigitNum(100))
 }
+
+func TestGetFactorSum(t *testing.T) {
+	assert.Equal(t, 284, GetFactorSum(220))
+	assert.Equal(t, 220, GetFactorSum(284))
+	assert.Equal(t, 1, GetFactorSum(2))
+}
+
+func TestAmicableNumbers(t *testing.T) {
+	assert.Equal(t, 31626, AmicableNumbers(10000))
+}
