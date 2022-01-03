@@ -686,12 +686,30 @@ func AmicableNumbers(up int) int {
 }
 
 // GetFactorSum get sum of factor excludes the number itself
+// func GetFactorSum(i int) int {
+// 	factorCount := 1
+// 	for j := 2; j <= int(math.Sqrt(float64(i))); j++ {
+// 		if i%j == 0 {
+// 			factorCount = factorCount + j
+// 			if i/j != j {
+// 				factorCount = factorCount + i/j
+// 			}
+// 		}
+// 	}
+// 	return factorCount
+// }
+
 func GetFactorSum(i int) int {
-	factorCount := 1
-	for j := 2; j < int(math.Sqrt(float64(i))); j++ {
+	sum := 1
+	for j := 2; j <= int(math.Sqrt(float64(i))); j++ {
 		if i%j == 0 {
-			factorCount = factorCount + j + i/j
+			sum = sum + j
+
+			if i/j != j {
+				sum = sum + i/j
+			}
+
 		}
 	}
-	return factorCount
+	return sum
 }

@@ -115,7 +115,7 @@ func TestNumberLetterCounts(t *testing.T) {
 }
 
 func TestMaximumPathSum1(t *testing.T) {
-	assert.Equal(t, 21124, MaximumPathSum1())
+	assert.Equal(t, 1074, MaximumPathSum1())
 }
 
 func TestCountingSundays(t *testing.T) {
@@ -130,6 +130,9 @@ func TestGetFactorSum(t *testing.T) {
 	assert.Equal(t, 284, GetFactorSum(220))
 	assert.Equal(t, 220, GetFactorSum(284))
 	assert.Equal(t, 1, GetFactorSum(2))
+	assert.Equal(t, 16, GetFactorSum(12))
+	assert.Equal(t, 3, GetFactorSum(4))
+	assert.Equal(t, 15, GetFactorSum(16))
 }
 
 func TestAmicableNumbers(t *testing.T) {
