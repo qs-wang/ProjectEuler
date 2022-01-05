@@ -37,3 +37,39 @@ func TestLexicographicPermutations5(t *testing.T) {
 func TestFind1MillionthLexicographicPermutation(t *testing.T) {
 	assert.Equal(t, "2783915460", Find1MillionthLexicographicPermutation([]int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}))
 }
+
+func TestAdd2BigNumber(t *testing.T) {
+	assert.Equal(t, "579", AddTwoBigNumber("123", "456"))
+}
+
+func TestAdd2BigNumber1(t *testing.T) {
+	assert.Equal(t, "4691", AddTwoBigNumber("123", "4568"))
+}
+
+func TestAdd2BigNumber2(t *testing.T) {
+	assert.Equal(t, "10001", AddTwoBigNumber("433", "9568"))
+}
+
+func TestOneThousandsDigitFibonacciNumber(t *testing.T) {
+	assert.Equal(t, 4782, OneThousandsDigitFibonacciNumber())
+}
+
+func TestFindCycle(t *testing.T) {
+	assert.Equal(t, 0, FindCycle(2))
+}
+
+func TestFindCycle1(t *testing.T) {
+	assert.Equal(t, 1, FindCycle(3))
+}
+
+func TestFindCycle2(t *testing.T) {
+	assert.Equal(t, 1, FindCycle(6))
+}
+
+func TestFindCycle3(t *testing.T) {
+	assert.Equal(t, 6, FindCycle(7))
+}
+
+func TestReciprocalCycles(t *testing.T) {
+	assert.Equal(t, 983, int(ReciprocalCycles(1000)))
+}

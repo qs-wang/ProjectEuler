@@ -65,7 +65,6 @@ func NextLexicographicPermutations(nums []int) []int {
 	var k int
 	for i := len(nums) - 1; i >= 0; i-- {
 		if i == 1 && nums[1] < nums[0] {
-			// nums[len(nums)-1], nums[len(nums)-2] = nums[len(nums)-2], nums[len(nums)-1]
 			return nums
 		}
 
@@ -85,4 +84,105 @@ func NextLexicographicPermutations(nums []int) []int {
 	}
 
 	return nums
+}
+
+// OneThousandsDigitFibonacciNumber https://projecteuler.net/problem=25
+func OneThousandsDigitFibonacciNumber() int {
+	f1 := "1"
+	f2 := "1"
+	index := 2
+	for {
+		if len(fmt.Sprint(f2)) == 1000 {
+			return index
+		}
+
+		f1, f2 = f2, AddTwoBigNumber(f1, f2)
+		index++
+	}
+}
+
+// AddTwoBigNumber supports add big number as string
+func AddTwoBigNumber(a, b string) string {
+	carry := 0
+	l, r := a, b
+
+	result := ""
+	if len(b) > len(a) {
+		l, r = b, a
+	}
+
+	for i := 0; i < len(l)-len(r); i++ {
+		r = "0" + r
+	}
+
+	for i := len(l) - 1; i >= 0; i-- {
+		sum := int(l[i]-'0') + int(r[i]-'0') + carry
+		carry = sum / 10
+
+		result = fmt.Sprintf("%d%s", sum%10, result)
+	}
+
+	if carry > 0 {
+		result = fmt.Sprintf("%d%s", carry, result)
+	}
+
+	return result
+}
+
+// ReciprocalCycles https://projecteuler.net/problem=26
+func ReciprocalCycles(limit int) int {
+	max := 0
+	value := 0
+	for i := 2; i < limit; i++ {
+		len := FindCycle(i)
+		if max < len {
+			max = len
+			value = i
+		}
+	}
+
+	return value
+
+}
+
+// FindCycle finds the length of the recurring cycle of a decimal fraction
+func FindCycle(i int) int {
+	if i == 1 {
+		return 0
+	}
+
+	divider := 1
+
+	for {
+		if divider > i {
+			break
+		}
+		divider *= 10
+	}
+
+	set := map[int]int{}
+	count := 0
+	for {
+		reminder := divider % i
+		count++
+
+		if reminder == 0 {
+			return 0
+		}
+
+		for {
+			if reminder > i {
+				break
+			}
+			reminder *= 10
+		}
+
+		if value, ok := set[reminder]; ok {
+			return count - value
+		}
+
+		set[reminder] = count
+
+		divider = reminder
+	}
 }
