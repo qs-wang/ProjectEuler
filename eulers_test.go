@@ -42,6 +42,11 @@ func TestPrime(t *testing.T) {
 	assert.False(t, Prime(9))
 }
 
+func TestPrimeCache(t *testing.T) {
+	assert.True(t, Prime(11))
+	assert.True(t, Prime(11))
+}
+
 func Test_Nth_Prime(t *testing.T) {
 	assert.Equal(t, 104743, NthPrime(10001))
 }

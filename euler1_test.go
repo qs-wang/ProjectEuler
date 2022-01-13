@@ -73,3 +73,73 @@ func TestFindCycle3(t *testing.T) {
 func TestReciprocalCycles(t *testing.T) {
 	assert.Equal(t, 983, int(ReciprocalCycles(1000)))
 }
+
+func TestQuadraticPrimes(t *testing.T) {
+	_, p := QuadraticPrimes()
+
+	assert.Equal(t, -59231, p)
+}
+
+func TestNumberSpiralSiagonals(t *testing.T) {
+	assert.Equal(t, 669171001, NumberSpiralSiagonals(1001))
+}
+
+func TestDistinctPowers(t *testing.T) {
+	assert.Equal(t, 9183, DistinctPowers(100))
+}
+
+func TestDigitFifthPowers(t *testing.T) {
+	assert.Equal(t, 443839, DigitFifthPowers())
+}
+
+func TestSumDigitalsPow(t *testing.T) {
+	assert.Equal(t, 1634, SumDigitalsPow(1634, 4))
+}
+
+// func TestCoinSums(t *testing.T) {
+// 	assert.Equal(t, 1634, CoinSums())
+// }
+
+func TestOneThroughNine(t *testing.T) {
+	assert.True(t, OneThroughNine(12, 34, 56789))
+}
+
+func TestOneThroughNine1(t *testing.T) {
+	assert.False(t, OneThroughNine(12, 30, 56789))
+}
+
+func TestOneThroughNine2(t *testing.T) {
+	assert.False(t, OneThroughNine(12, 3, 56789))
+}
+
+func TestPandigitalProduct(t *testing.T) {
+	assert.Equal(t, 45228, PandigitalProduct())
+}
+
+func TestDigitCancellingFractions(t *testing.T) {
+	DigitCancellingFractions()
+}
+
+func TestFactorial(t *testing.T) {
+	assert.Equal(t, 120, Factorial(5))
+}
+
+func TestDigitFactorials(t *testing.T) {
+	assert.Equal(t, 40730, DigitFactorials())
+}
+
+func TestRotate(t *testing.T) {
+	assert.Equal(t, 121, RotateRight(211))
+}
+
+func TestCircularPrime(t *testing.T) {
+	assert.Equal(t, 55, CircularPrimes())
+}
+
+func TestRotatePrime(t *testing.T) {
+	assert.True(t, RotatePrime(719))
+}
+
+func TestRotatePrime1(t *testing.T) {
+	assert.True(t, RotatePrime(97))
+}

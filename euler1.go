@@ -2,7 +2,10 @@ package projecteuler
 
 import (
 	"fmt"
+	"math"
+	"math/big"
 	"sort"
+	"strconv"
 	"strings"
 )
 
@@ -185,4 +188,277 @@ func FindCycle(i int) int {
 
 		divider = reminder
 	}
+}
+
+// QuadraticPrimes https://projecteuler.net/problem=27
+func QuadraticPrimes() (int, int) {
+	max := 0
+	product := 0
+
+	for a := -999; a <= 999; a++ {
+		for b := -1000; b <= 1000; b++ {
+			n := 0
+			for {
+				var t = n*n + a*n + b
+				if !Prime(t) {
+					break
+				}
+				n++
+			}
+			if n > max {
+				max = n
+				product = a * b
+			}
+		}
+	}
+	return max, product
+}
+
+// NumberSpiralSiagonals https://projecteuler.net/problem=28
+func NumberSpiralSiagonals(num int) int {
+	sum := 1
+	next := 1
+	step := 2
+
+	for {
+		for i := 0; i < 4; i++ {
+			next = next + step
+			sum += next
+		}
+		if next == num*num {
+			break
+		}
+		step += 2
+	}
+
+	return sum
+}
+
+// DistinctPowers https://projecteuler.net/problem=29
+func DistinctPowers(num int) int {
+	r := make(map[string]bool)
+	for a := 2; a <= num; a++ {
+		for b := 2; b <= num; b++ {
+			p := new(big.Int).Exp(big.NewInt(int64(a)), big.NewInt(int64(b)), nil)
+			if !r[p.String()] {
+				r[p.String()] = true
+			}
+		}
+	}
+
+	return len(r)
+}
+
+// DigitFifthPowers https://projecteuler.net/problem=16
+func DigitFifthPowers() int {
+	sum := 0
+	for i := 10; ; i++ {
+		if i > 354294 {
+			break
+		}
+		temp := SumDigitalsPow(i, 5)
+
+		if temp == i {
+			sum += temp
+		}
+
+	}
+
+	return sum
+}
+
+// SumDigitalsPow sums the digits of a number to the power of a given power
+func SumDigitalsPow(i int, p int) int {
+	temp := 0
+	for {
+		r := i % 10
+		pow := 1
+		for i := 0; i < p; i++ {
+			pow *= r
+		}
+		temp += pow
+
+		if i/10 == 0 {
+			break
+		}
+		i = i / 10
+	}
+	return temp
+}
+
+// CoinSums TBD
+func CoinSums() int {
+	coins := []float32{1, 2, 5, 10, 20, 50, 100}
+
+	var cnt int = 1
+
+	for i := 0; i < len(coins); i++ {
+		findSum(&coins, 200-coins[i], &cnt)
+	}
+
+	return cnt
+}
+
+func findSum(coins *[]float32, num float32, cnt *int) {
+
+	if num == 0 {
+		(*cnt)++
+		return
+	}
+
+	if num < 0 {
+		return
+	}
+
+	for i := 0; i < len(*coins); i++ {
+		findSum(coins, num-(*coins)[i], cnt)
+	}
+
+}
+
+// OneThroughNine identities can be written as a 1 through 9 pandigital
+func OneThroughNine(num1, num2, num3 int) bool {
+	s1 := strconv.Itoa(num1)
+	s2 := strconv.Itoa(num2)
+	s3 := strconv.Itoa(num3)
+
+	numSet := make(map[rune]bool)
+
+	t := strings.Join([]string{s1, s2, s3}, "")
+
+	if len(t) < 9 {
+		return false
+	}
+
+	for _, v := range t {
+		if v == '0' {
+			return false
+		}
+
+		numSet[v] = true
+
+	}
+
+	return len(numSet) == 9
+}
+
+//PandigitalProduct https://projecteuler.net/problem=32
+func PandigitalProduct() int {
+	sum := 0
+	for i := 1000; i < 9999; i++ {
+		if findFactor(i) {
+			sum += i
+			continue
+		}
+	}
+	return sum
+}
+
+func findFactor(num int) bool {
+	for i := 10; i <= 9999; i++ {
+		if num%i == 0 {
+			x := num / i
+			if OneThroughNine(i, x, num) {
+				return true
+			}
+		}
+	}
+
+	return false
+}
+
+// DigitCancellingFractions https://projecteuler.net/problem=33
+func DigitCancellingFractions() {
+	for a := 1; a <= 9; a++ {
+		for b := 1; b <= 9; b++ {
+			c := float32(10*a*b) / float32(9*a+b)
+			if c == float32(int32(c)) {
+				if float32(10*a+b)/(float32(10*b)+c) == float32(a)/c {
+					if a != b && b != int(c) {
+						fmt.Println(fmt.Sprintf("number is: %d/%d", a, int(c)))
+					}
+				}
+			}
+		}
+	}
+}
+
+// DigitFactorials https://projecteuler.net/problem=34
+func DigitFactorials() int {
+	max := 241920 // this is the possible max number which equal to 8! * 6
+
+	s := 0
+	for i := 3; i < max; i++ {
+		r := i
+		sum := 0
+		for {
+			if r == 0 {
+				break
+			}
+
+			sum += Factorial(r % 10)
+			r = r / 10
+		}
+
+		if sum == i {
+			s += i
+		}
+	}
+
+	return s
+}
+
+// Factorial get factorials of a number
+func Factorial(num int) int {
+	if num > 21 {
+		return -1 //overflow
+	}
+
+	result := 1
+	for i := 1; i <= num; i++ {
+		result *= i
+	}
+
+	return result
+}
+
+// RotateRight rotate the number to right
+func RotateRight(num int) int {
+	l := (int)(math.Log10(float64(num)) + 1)
+	n := num / 10
+	r := num % 10
+
+	return int(float64(r)*math.Pow10(l-1)) + n
+}
+
+// CircularPrimes project euler problem 35
+func CircularPrimes() int {
+	count := 5
+	for i := 13; i < 1000000; i++ {
+		if Prime(i) {
+			if RotatePrime(i) {
+				count++
+			}
+		}
+	}
+	return count
+
+}
+
+// RotatePrime check if the number is a rotate prime number
+// e.g.  197, 971, 719
+func RotatePrime(i int) bool {
+	l := (int)(math.Log10(float64(i)) + 1)
+	r := i
+	f := false
+	for j := 0; j < l; j++ {
+		r = RotateRight(r)
+		if !Prime(r) {
+			break
+		}
+		if r == i {
+			f = true
+		}
+	}
+	return f
 }

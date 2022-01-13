@@ -46,16 +46,29 @@ func FibonacciEvent(num int) int {
 	return amt
 }
 
+var primeList = make(map[int]bool)
+
 // Prime number
 func Prime(num int) bool {
-	if num == 1 {
+	if num < 2 {
 		return false
 	}
+
+	if num%2 == 0 {
+		return false
+	}
+
+	if _, ok := primeList[num]; ok {
+		return true
+	}
+
 	for i := 2; i <= int(math.Sqrt(float64(num))); i++ {
 		if num%i == 0 {
 			return false
 		}
 	}
+
+	primeList[num] = true
 	return true
 }
 
@@ -360,6 +373,7 @@ func HighlyDividedTriangularNumber() int {
 	return amt
 }
 
+// FactorsAmt return the amount of factors of a number
 func FactorsAmt(num int, min int) int {
 	if int(math.Sqrt(float64(num))) < min {
 		return 0
@@ -376,6 +390,7 @@ func FactorsAmt(num int, min int) int {
 	return count
 }
 
+// LargeSum https://projecteuler.net/problem=13
 func LargeSum() string {
 	file, err := os.Open("./largesum.txt")
 	if err != nil {
@@ -644,7 +659,6 @@ func FactorialDigitNum(num int) string {
 		result = result.Mul(result, big.NewInt(int64(i)))
 	}
 
-	fmt.Println(result.Text(10))
 	count := big.NewInt(0)
 
 	for {
@@ -686,19 +700,6 @@ func AmicableNumbers(up int) int {
 }
 
 // GetFactorSum get sum of factor excludes the number itself
-// func GetFactorSum(i int) int {
-// 	factorCount := 1
-// 	for j := 2; j <= int(math.Sqrt(float64(i))); j++ {
-// 		if i%j == 0 {
-// 			factorCount = factorCount + j
-// 			if i/j != j {
-// 				factorCount = factorCount + i/j
-// 			}
-// 		}
-// 	}
-// 	return factorCount
-// }
-
 func GetFactorSum(i int) int {
 	sum := 1
 	for j := 2; j <= int(math.Sqrt(float64(i))); j++ {
