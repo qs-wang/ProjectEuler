@@ -143,3 +143,39 @@ func TestRotatePrime(t *testing.T) {
 func TestRotatePrime1(t *testing.T) {
 	assert.True(t, RotatePrime(97))
 }
+
+func TestToBinary(t *testing.T) {
+	assert.Equal(t, "1001001001", ToBinary(585))
+}
+
+func TestDoubleBasePalindromes(t *testing.T) {
+	assert.Equal(t, 872187, DoubleBasePalindromes())
+}
+
+func TestRemoveLeadingDecimalNum(t *testing.T) {
+	assert.Equal(t, 797, RemoveLeadingDecimalNum(3797))
+}
+
+func TestRemoveLeadingDecimalNum1(t *testing.T) {
+	assert.Equal(t, 0, RemoveLeadingDecimalNum(3))
+}
+
+func TestRemoveTrailingDecimalNum(t *testing.T) {
+	assert.Equal(t, 379, RemoveTrailingDecimalNum(3797))
+}
+
+func TestTruncatablePrimes(t *testing.T) {
+	assert.Equal(t, 748317, TruncatablePrimes())
+}
+
+func TestPrimeLefRight(t *testing.T) {
+	assert.True(t, PrimeLefRight(3797))
+}
+
+func TestPandigitalMultiples(t *testing.T) {
+	assert.Equal(t, 932718654, PandigitalMultiples())
+}
+
+func TestIntegerRightRriangles(t *testing.T) {
+	assert.Equal(t, 840, IntegerRightRriangles())
+}

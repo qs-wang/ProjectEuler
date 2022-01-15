@@ -462,3 +462,194 @@ func RotatePrime(i int) bool {
 	}
 	return f
 }
+
+// ToBinary convert a number to binary
+func ToBinary(num int) string {
+	r := make([]int, 32)
+
+	for i := 0; i < 32; i++ {
+		if num&(1<<i) != 0 {
+			r[31-i] = 1
+		} else {
+			r[31-i] = 0
+		}
+	}
+
+	p := 0
+	for i := 0; i < 32; i++ {
+		if r[i] == 1 {
+			p = i
+			break
+		}
+	}
+
+	return strings.Trim(strings.Join(strings.Fields(fmt.Sprint(r[p:])), ""), "[]")
+}
+
+func isPalindromesStr(str string) bool {
+	for i := 0; i < len(str)/2; i++ {
+		if str[i] != str[len(str)-1-i] {
+			return false
+		}
+	}
+	return true
+}
+
+func isPalindromeNum(num int) bool {
+	s := strconv.Itoa(num)
+	return isPalindromesStr(s)
+}
+
+// DoubleBasePalindromes project euler problem 36
+func DoubleBasePalindromes() int {
+	sum := 0
+
+	for i := 1; i < 1000000; i++ {
+		if isPalindrome(i) && isPalindromesStr(ToBinary(i)) {
+			sum += i
+		}
+	}
+	return sum
+}
+
+// RemoveLeadingDecimalNum remove the leading decimal number
+func RemoveLeadingDecimalNum(num int) int {
+	l := (int)(math.Log10(float64(num)) + 1)
+
+	d := 1
+	for i := 0; i < l-1; i++ {
+		d = d * 10
+	}
+
+	return num % d
+}
+
+// RemoveTrailingDecimalNum remove the trailing decimal number
+func RemoveTrailingDecimalNum(num int) int {
+	return num / 10
+}
+
+// TruncatablePrimes project euler problem 37
+func TruncatablePrimes() int {
+	sum := 0
+	c := 0
+	for i := 11; ; i++ {
+		if Prime(i) && PrimeLefRight(i) {
+			sum += i
+			c++
+		}
+
+		if c == 11 {
+			break
+		}
+	}
+
+	return sum
+}
+
+// PrimeLefRight  check if the number is a prime number
+// e.g.  197, 971, 719
+func PrimeLefRight(num int) bool {
+	t := num
+	l, r := false, false
+	for {
+		t = RemoveLeadingDecimalNum(t)
+		if t == 0 {
+			l = true
+			break
+		}
+
+		if !Prime(t) {
+			break
+		}
+	}
+	t = num
+	for {
+		t = RemoveTrailingDecimalNum(t)
+		if t == 0 {
+			r = true
+			break
+		}
+
+		if !Prime(t) {
+			break
+		}
+	}
+	return l && r
+}
+
+// PandigitalMultiples project euler problem 38
+func PandigitalMultiples() int {
+	max := 0
+	for i := 1; i < 9999; i++ {
+		m := make(map[int]bool)
+		sum := strconv.Itoa(i)
+		if !checkValidAndPutInMap(i, &m) {
+			for j := 2; ; j++ {
+				sum += strconv.Itoa(i * j)
+				if checkValidAndPutInMap(i*j, &m) {
+					break
+				}
+				if len(m) == 9 {
+					s, _ := strconv.Atoi(sum)
+					if max < s {
+						max = s
+					}
+				}
+			}
+		}
+	}
+
+	return max
+}
+
+func checkValidAndPutInMap(num int, m *map[int]bool) bool {
+	r := num
+	for {
+		if r%10 == 0 {
+			return true
+		}
+		if _, ok := (*m)[r%10]; ok {
+			return true
+		}
+		(*m)[r%10] = true
+		r = r / 10
+		if r == 0 {
+			break
+		}
+	}
+	return false
+}
+
+// IntegerRightRriangles project euler problem 39
+func IntegerRightRriangles() int {
+	m := make(map[int]int)
+	// i,j are short edges, as the max perimeter is 1000, so the short edge cannot exceed 500
+	for i := 1; i < 500; i++ {
+		for j := i; j < i; j++ {
+			k := math.Sqrt(float64(i*i) + float64(j*j))
+			if k == math.Trunc(k) {
+				l := i + j + int(k)
+				if l > 1000 {
+					break
+				}
+				if _, ok := m[l]; ok {
+					m[l] = m[l] + 1
+				} else {
+					m[l] = 1
+				}
+			}
+		}
+	}
+
+	max := 0
+	ret := 0
+	for i, v := range m {
+		if max < v {
+			max = v
+			ret = i
+		}
+	}
+
+	return ret
+}
