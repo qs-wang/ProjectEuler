@@ -2,7 +2,6 @@ package projecteuler
 
 import (
 	"bufio"
-	"fmt"
 	"log"
 	"math"
 	"math/big"
@@ -670,7 +669,7 @@ func FactorialDigitNum(num int) string {
 		m := big.NewInt(0)
 		result, mod := result.DivMod(result, big.NewInt(10), m)
 
-		fmt.Println(mod.Text(10))
+		// fmt.Println(mod.Text(10))
 
 		count = count.Add(count, mod)
 

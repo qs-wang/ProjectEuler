@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math"
 	"math/big"
+	"os"
 	"sort"
 	"strconv"
 	"strings"
@@ -626,7 +627,7 @@ func IntegerRightRriangles() int {
 	m := make(map[int]int)
 	// i,j are short edges, as the max perimeter is 1000, so the short edge cannot exceed 500
 	for i := 1; i < 500; i++ {
-		for j := i; j < i; j++ {
+		for j := i; j < 500; j++ {
 			k := math.Sqrt(float64(i*i) + float64(j*j))
 			if k == math.Trunc(k) {
 				l := i + j + int(k)
@@ -652,4 +653,147 @@ func IntegerRightRriangles() int {
 	}
 
 	return ret
+}
+
+func IsPanDigital(num int) bool {
+	l := len(strconv.Itoa(num))
+
+	a := make([]int, l+1)
+	n := num
+
+	for {
+		r := n % 10
+		if r == 0 {
+			return false
+		}
+
+		if r > l {
+			return false
+		}
+
+		a[r] = 1
+		n = n / 10
+		if n == 0 {
+			break
+		}
+	}
+
+	for i := 1; i < len(a); i++ {
+		if a[i] == 0 {
+			return false
+		}
+	}
+
+	return true
+
+}
+
+func PandigitalPrime() int {
+	max := 0
+	for i := 9; i > 0; i-- {
+		nums := []int{}
+		for j := 1; j <= i; j++ {
+			nums = append(nums, j)
+		}
+
+		r := GenPermutation(nums)
+
+		for _, val := range r {
+			if Prime(val) {
+				if max < val {
+					max = val
+				}
+			}
+		}
+
+		// try from big to small
+		// if found one, quit loop
+		if max != 0 {
+			break
+		}
+	}
+	return max
+}
+
+func CodedTriangleNumbers() (int, error) {
+	count := 0
+
+	r := genTriangleNums(1000)
+
+	f, err := os.Open("./p042_words.txt")
+	if err != nil {
+		return count, err
+	}
+	defer f.Close()
+
+	scanner := ReadNames(f)
+
+	for scanner.Scan() {
+		word := scanner.Text()
+
+		c := 0
+		for _, v := range word {
+			if v == '"' {
+				continue
+			}
+			c += int(v) - 'A' + 1
+		}
+
+		if r[c] {
+			count++
+		}
+
+	}
+
+	return count, nil
+
+}
+
+func genTriangleNums(n int) map[int]bool {
+	r := make(map[int]bool)
+
+	for i := 1; i <= n; i++ {
+		r[i*(i+1)/2] = true
+	}
+
+	return r
+}
+
+// SubStringDivisibility project euler problem 43
+func SubStringDivisibility() int {
+
+	nums := []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+
+	n := GenPermutation(nums)
+	sum := 0
+	for i := 0; i < len(n); i++ {
+		if n[i] < 1000000000 {
+			continue
+		}
+		if IsProperty(n[i]) {
+			// fmt.Println(n[i])
+			sum += n[i]
+		}
+	}
+
+	return sum
+}
+
+func IsProperty(num int) bool {
+	divider := []int{2, 3, 5, 7, 11, 13, 17}
+	i := len(divider) - 1
+	r := num
+	for {
+		if (r%1000)%divider[i] != 0 {
+			return false
+		}
+		i--
+		r = r / 10
+
+		if i < 0 {
+			break
+		}
+	}
+
+	return true
 }

@@ -179,3 +179,31 @@ func TestPandigitalMultiples(t *testing.T) {
 func TestIntegerRightRriangles(t *testing.T) {
 	assert.Equal(t, 840, IntegerRightRriangles())
 }
+
+func TestPandigitalPrime(t *testing.T) {
+	assert.Equal(t, 7652413, PandigitalPrime())
+}
+
+func TestIsPanDigital(t *testing.T) {
+	assert.True(t, IsPanDigital(1234))
+}
+
+func TestCodedTriangleNumbers(t *testing.T) {
+	r, err := CodedTriangleNumbers()
+	if err != nil {
+		assert.Fail(t, "failed")
+	}
+	assert.Equal(t, 162, r)
+}
+
+func TestIsProperty(t *testing.T) {
+	assert.True(t, IsProperty(1406357289))
+}
+
+func TestIsNotProperty(t *testing.T) {
+	assert.False(t, IsProperty(1506357299))
+}
+
+func TestSubStringSivisibility(t *testing.T) {
+	assert.Equal(t, 16695334890, SubStringDivisibility())
+}

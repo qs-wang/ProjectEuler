@@ -1,8 +1,6 @@
 package projecteuler
 
 import (
-	"fmt"
-	"os"
 	"strings"
 	"testing"
 
@@ -52,17 +50,16 @@ func TestReadNames(t *testing.T) {
 	assert.NotNil(t, ReadNames(strings.NewReader("")))
 }
 
-func TestReadNamesFromFile(t *testing.T) {
-	fmt.Println("hello")
-	f, err := os.Open("./p022_names.txt")
-	defer f.Close()
+// func TestReadNamesFromFile(t *testing.T) {
+// 	f, err := os.Open("./p022_names.txt")
+// 	defer f.Close()
 
-	assert.Nil(t, err)
-	// scanner := ReadNames(f)
-	// for scanner.Scan() {
-	// 	fmt.Println(scanner.Text())
-	// }
-}
+// 	assert.Nil(t, err)
+// 	// scanner := ReadNames(f)
+// 	// for scanner.Scan() {
+// 	// 	fmt.Println(scanner.Text())
+// 	// }
+// }
 
 func TestSplitToSortedFile(t *testing.T) {
 	err := SplitToSortedFile("p022_names.txt")
