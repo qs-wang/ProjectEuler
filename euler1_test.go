@@ -1,6 +1,7 @@
 package projecteuler
 
 import (
+	"math"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -185,7 +186,7 @@ func TestPandigitalPrime(t *testing.T) {
 }
 
 func TestIsPanDigital(t *testing.T) {
-	assert.True(t, IsPanDigital(1234))
+	assert.True(t, isPanDigital(1234))
 }
 
 func TestCodedTriangleNumbers(t *testing.T) {
@@ -197,13 +198,72 @@ func TestCodedTriangleNumbers(t *testing.T) {
 }
 
 func TestIsProperty(t *testing.T) {
-	assert.True(t, IsProperty(1406357289))
+	assert.True(t, isProperty(1406357289))
 }
 
 func TestIsNotProperty(t *testing.T) {
-	assert.False(t, IsProperty(1506357299))
+	assert.False(t, isProperty(1506357299))
 }
 
 func TestSubStringSivisibility(t *testing.T) {
 	assert.Equal(t, 16695334890, SubStringDivisibility())
+}
+
+func TestChampernowneConst(t *testing.T) {
+	i := ChampernowneConst(1)
+
+	assert.Equal(t, 1, i)
+}
+
+func TestChampernowneConst12(t *testing.T) {
+	i := ChampernowneConst(12)
+
+	assert.Equal(t, 1, i)
+}
+
+func TestChampernowneConst15(t *testing.T) {
+	i := ChampernowneConst(15)
+
+	assert.Equal(t, 2, i)
+}
+
+func TestChampernowneConst10(t *testing.T) {
+	i := ChampernowneConst(10)
+
+	assert.Equal(t, 1, i)
+}
+
+func TestChampernowneConst100(t *testing.T) {
+	i := ChampernowneConst(100)
+
+	assert.Equal(t, 5, i)
+}
+
+func TestChampernowneConst1000(t *testing.T) {
+	i := ChampernowneConst(1000)
+
+	assert.Equal(t, 3, i)
+}
+
+func TestChampernowneConstP40(t *testing.T) {
+	c := 1
+	for i := 0; i < 7; i++ {
+		c *= ChampernowneConst(int(math.Pow10(i)))
+	}
+
+	assert.Equal(t, 210, c)
+
+}
+
+func TestPentagonNumbers(t *testing.T) {
+	assert.Equal(t, 5482660, PentagonNumbers())
+
+}
+
+func TestIsPentagonNumber(t *testing.T) {
+	assert.True(t, isPentagonNumber(92))
+}
+
+func TestIsPentagonNumberFalse(t *testing.T) {
+	assert.False(t, isPentagonNumber(48))
 }

@@ -655,7 +655,7 @@ func IntegerRightRriangles() int {
 	return ret
 }
 
-func IsPanDigital(num int) bool {
+func isPanDigital(num int) bool {
 	l := len(strconv.Itoa(num))
 
 	a := make([]int, l+1)
@@ -688,6 +688,7 @@ func IsPanDigital(num int) bool {
 
 }
 
+// PandigitalPrime project euler problem 41
 func PandigitalPrime() int {
 	max := 0
 	for i := 9; i > 0; i-- {
@@ -715,6 +716,7 @@ func PandigitalPrime() int {
 	return max
 }
 
+// CodedTriangleNumbers project euler problem 42
 func CodedTriangleNumbers() (int, error) {
 	count := 0
 
@@ -770,7 +772,7 @@ func SubStringDivisibility() int {
 		if n[i] < 1000000000 {
 			continue
 		}
-		if IsProperty(n[i]) {
+		if isProperty(n[i]) {
 			// fmt.Println(n[i])
 			sum += n[i]
 		}
@@ -779,7 +781,7 @@ func SubStringDivisibility() int {
 	return sum
 }
 
-func IsProperty(num int) bool {
+func isProperty(num int) bool {
 	divider := []int{2, 3, 5, 7, 11, 13, 17}
 	i := len(divider) - 1
 	r := num
@@ -796,4 +798,62 @@ func IsProperty(num int) bool {
 	}
 
 	return true
+}
+
+// ChampernowneConst project euler problem 40
+func ChampernowneConst(n int) int {
+	r := 0
+	s := 0
+	k := 0
+	for {
+		if s >= n {
+			break
+		}
+		r = s
+
+		s += 9 * int(math.Pow10(k)) * (k + 1)
+		k++
+	}
+	h := n - r - 1
+	t := int(math.Pow10(k-1)) + h/k
+	p := h % k
+
+	ret, _ := strconv.Atoi(strconv.Itoa(t)[p : p+1])
+
+	return ret
+}
+
+// PentagonNumbers project euler problem 44
+func PentagonNumbers() int {
+	min := math.MaxInt64
+
+	for i := 1; i < 5000; i++ {
+		p1 := calPentagonNumber(i)
+		for j := i + 1; j < 5000; j++ {
+			p2 := calPentagonNumber(j)
+			if isPentagonNumber(p1 + p2) {
+				d := p2 - p1
+				if isPentagonNumber(d) {
+					if d < min {
+						min = d
+					}
+				}
+			}
+		}
+	}
+	return min
+
+}
+
+func calPentagonNumber(n int) (num int) {
+	return (n * (3*n - 1)) / 2
+}
+
+func isPentagonNumber(num int) bool {
+	r := math.Sqrt(float64(1 + 24*num))
+	return isWholeNum(r) && (int(r)%6 == 5)
+}
+
+func isWholeNum(num float64) bool {
+	return num == math.Trunc(num)
 }
