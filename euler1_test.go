@@ -267,3 +267,7 @@ func TestIsPentagonNumber(t *testing.T) {
 func TestIsPentagonNumberFalse(t *testing.T) {
 	assert.False(t, isPentagonNumber(48))
 }
+
+func TestTriangularPentagonalHexagonal(t *testing.T) {
+	assert.Equal(t, 1533776805, TriangularPentagonalHexagonal(286))
+}

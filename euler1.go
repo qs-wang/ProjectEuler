@@ -849,11 +849,30 @@ func calPentagonNumber(n int) (num int) {
 	return (n * (3*n - 1)) / 2
 }
 
+func calTriangle(n int) (num int) {
+	return (n * (n + 1)) / 2
+}
+
 func isPentagonNumber(num int) bool {
 	r := math.Sqrt(float64(1 + 24*num))
 	return isWholeNum(r) && (int(r)%6 == 5)
 }
 
+func isHexagonal(num int) bool {
+	r := math.Sqrt(float64(1 + 8*num))
+	return isWholeNum(r) && (int(r)%4 == 3)
+}
+
 func isWholeNum(num float64) bool {
 	return num == math.Trunc(num)
+}
+
+// TriangularPentagonalHexagonal project euler problem 45
+func TriangularPentagonalHexagonal(start int) int {
+	for i := start; ; i++ {
+		t := calTriangle(i)
+		if isPentagonNumber(t) && isHexagonal(t) {
+			return t
+		}
+	}
 }
